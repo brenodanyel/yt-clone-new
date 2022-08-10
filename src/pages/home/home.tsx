@@ -1,15 +1,13 @@
 import React from 'react';
-import { fetchRecommendedVideosMock as fetchRecommendedVideos } from '../../services/api';
-// import { fetchRecommendedVideos } from '../../services/api';
-import { VideoCard } from '../../components/VideoCard';
-import { Video } from '../../types/video';
+import { fetchRecommendedVideos } from '../../services/api';
+import { VideoCardVertical } from '../../components/VideoCardVertical';
 
 export function Home() {
-  const [recommendedVideos, setRecommendedVideos] = React.useState<Video[]>([]);
+  const [recommendedVideos, setRecommendedVideos] = React.useState<string[]>([]);
 
   const getVideos = React.useCallback(async () => {
     const result = await fetchRecommendedVideos();
-    setRecommendedVideos(result as unknown as Video[]);
+    setRecommendedVideos(result);
   }, []);
 
   React.useEffect(() => {
@@ -22,23 +20,9 @@ export function Home() {
       <div className="flex flex-wrap gap-3 p-3 justify-evenly">
         {
           recommendedVideos.map((video) => (
-            <VideoCard
-              key={video.id}
-              horizontal={false}
-              video={
-                {
-                  id: video.id,
-                  thumbnail: video.snippet.thumbnails.high.url,
-                  title: video.snippet.title,
-                  duration: video.contentDetails.duration,
-                  statistics: {
-                    views: video.statistics.viewCount,
-                  },
-                  channel: {
-                    id: video.snippet.channelId,
-                  },
-                }
-              }
+            <VideoCardVertical
+              key={video}
+              videoId={video}
             />
           ))
         }

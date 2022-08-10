@@ -36,4 +36,16 @@ export default {
     hiddenSubscriberCount: false,
     videoCount: '861',
   },
+  brandingSettings: {
+    channel: {
+      title: 'Franciny Ehlke',
+      description: '@francinyehlke ♡ vídeos novos terça, quinta e sábado ',
+      keywords: 'fran franciny ehlke youtuber feminina humor beleza',
+      unsubscribedTrailer: 'q1B3ZHeqazQ',
+      country: 'BR',
+    },
+    image: {
+      bannerExternalUrl: 'https://yt3.ggpht.com/Iyj7pH9rKIjk4pqGjBISqGWS_dDpG_f2pbIRD7D9a3yQCCgkC51CHfwggcoyNi1VLxSZtHdT',
+    },
+  },
 };

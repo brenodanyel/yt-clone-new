@@ -1,3 +1,5 @@
+import { thumbnail } from './thumbnail';
+
 export type Video = {
   kind: string,
   etag: string,
@@ -8,46 +10,20 @@ export type Video = {
     title: string,
     description: string,
     thumbnails: {
-      default: {
-        url: string,
-        width: number,
-        height: number,
-      },
-      medium: {
-        url: string,
-        width: number,
-        height: number,
-      },
-      high: {
-        url: string,
-        width: number,
-        height: number,
-      },
-      standard: {
-        url: string,
-        width: number,
-        height: number,
-      },
-      maxres: {
-        url: string,
-        width: number,
-        height: number,
-      },
-    },
-    channelTitle: string,
-    tags: [
-      string,
-      string,
-      string,
-      string,
-      string,
-    ],
-    categoryId: string,
-    liveBroadcastContent: string,
-    localized: {
-      title: string,
-      description: string,
-    },
+      default: thumbnail;
+      medium: thumbnail;
+      high: thumbnail;
+      standard: thumbnail;
+      maxres: thumbnail;
+    };
+  },
+  channelTitle: string,
+  tags: string[],
+  categoryId: string,
+  liveBroadcastContent: string,
+  localized: {
+    title: string,
+    description: string,
   },
   contentDetails: {
     duration: string,
@@ -57,10 +33,12 @@ export type Video = {
     licensedContent: boolean,
     contentRating: {},
     projection: string;
-  };
+  },
+  defaultAudioLanguage: string,
   statistics: {
     viewCount: string,
     likeCount: string,
     favoriteCount: string,
-  },
+    commentCount: string;
+  };
 };

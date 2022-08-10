@@ -1,6 +1,8 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import recommendedVideosMock from '../mocks/recommendedVideos';
 import channelMock from '../mocks/channel';
+import searchMock from '../mocks/search';
+import videoMock from '../mocks/video';
 
 const { VITE_API_KEY } = import.meta.env;
 
@@ -11,38 +13,102 @@ const axiosInstance = axios.create(
 );
 
 const tryToFetch = async (config: AxiosRequestConfig) => {
-  try {
-    const { data } = await axiosInstance(
-      {
-        ...config,
-        url: `${config.url}&key=${VITE_API_KEY}`,
-      },
-    );
-    return data;
-  } catch (e) {
-    return null;
-  }
+  const { data } = await axiosInstance(config);
+  return data;
 };
 
 export const fetchRecommendedVideos = async () => {
+  if (!VITE_API_KEY) return recommendedVideosMock;
+
   const result = await tryToFetch(
     {
-      url: 'videos?part=snippet&part=statistics&part=contentDetails&chart=mostPopular&regionCode=BR&maxResults=30',
+      url: '/videos',
+      params: new URLSearchParams([
+        ['chart', 'mostPopular'],
+        ['regionCode', 'BR'],
+        ['maxResults', '30'],
+        ['key', VITE_API_KEY],
+      ]),
     },
   );
 
-  return result.items;
+  if (!result) {
+    return [];
+  }
+
+  return result.items.map((item: any) => item.id);
 };
 
 export const fetchChannel = async (id: string) => {
+  if (!VITE_API_KEY) return channelMock;
+
   const result = await tryToFetch(
     {
-      url: `channels?part=snippet&part=statistics&id=${id}`,
+      url: '/channels',
+      params: new URLSearchParams([
+        ['part', 'snippet'],
+        ['part', 'statistics'],
+        ['part', 'brandingSettings'],
+        ['id', id],
+        ['key', VITE_API_KEY],
+      ]),
     },
   );
 
   return result.items[0];
 };
 
-export const fetchRecommendedVideosMock = async () => recommendedVideosMock;
-export const fetchChannelMock = async (_id: string) => channelMock;
+export const fetchChannelByUsername = async (username: string) => {
+  if (!VITE_API_KEY) return channelMock;
+
+  const result = await tryToFetch(
+    {
+      url: '/channels',
+      params: new URLSearchParams([
+        ['part', 'snippet'],
+        ['part', 'statistics'],
+        ['part', 'brandingSettings'],
+        ['forUsername', username],
+        ['key', VITE_API_KEY],
+      ]),
+    },
+  );
+
+  return result.items[0];
+};
+
+export const fetchVideo = async (id: string) => {
+  if (!VITE_API_KEY) return videoMock;
+
+  const result = await tryToFetch({
+    url: '/videos',
+    params: new URLSearchParams([
+      ['part', 'snippet'],
+      ['part', 'statistics'],
+      ['part', 'contentDetails'],
+      ['id', id],
+      ['key', VITE_API_KEY],
+    ]),
+  });
+
+  return result.items[0];
+};
+
+export const fetchSearch = async (q: string) => {
+  if (!VITE_API_KEY) return searchMock;
+
+  const result = await tryToFetch(
+    {
+      url: '/search',
+      params: new URLSearchParams([
+        ['q', q],
+        ['maxResults', 30],
+        ['key', VITE_API_KEY],
+      ]),
+    },
+  );
+
+  return result.items
+    .filter((item: any) => item.id.videoId)
+    .map((item: any) => item.id.videoId);
+};
