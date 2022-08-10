@@ -58,25 +58,6 @@ export const fetchChannel = async (id: string) => {
   return result.items[0];
 };
 
-export const fetchChannelByUsername = async (username: string) => {
-  if (!VITE_API_KEY) return channelMock;
-
-  const result = await tryToFetch(
-    {
-      url: '/channels',
-      params: new URLSearchParams([
-        ['part', 'snippet'],
-        ['part', 'statistics'],
-        ['part', 'brandingSettings'],
-        ['forUsername', username],
-        ['key', VITE_API_KEY],
-      ]),
-    },
-  );
-
-  return result.items[0];
-};
-
 export const fetchVideo = async (id: string) => {
   if (!VITE_API_KEY) return videoMock;
 

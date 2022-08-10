@@ -1,20 +1,20 @@
 import React from 'react';
 import { Channel } from '../types/channel';
-import { fetchChannelByUsername } from '../services/api';
+import { fetchChannel } from '../services/api';
 
-export function useChannel(channelName: string) {
+export function useChannel(channelId: string) {
   const [channel, setChannel] = React.useState<Channel | null>(null);
 
   const getChannel = React.useCallback(async () => {
-    if (channelName) {
+    if (channelId) {
       try {
-        const result = await fetchChannelByUsername(channelName);
+        const result = await fetchChannel(channelId);
         setChannel(result);
       } catch (e) {
         console.log(e);
       }
     }
-  }, [channelName]);
+  }, [channelId]);
 
   React.useEffect(() => {
     getChannel();

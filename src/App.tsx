@@ -19,7 +19,7 @@ export function App() {
             <Route path="results" element={<Results />} />
           </Route>
           <Route path="c" element={<CWrapper />}>
-            <Route path=":channel_name" element={<Channel />} />
+            <Route path=":channelId" element={<Channel />} />
           </Route>
           <Route path="watch" element={<WatchWrapper />}>
             <Route path="" element={<Watch />} />

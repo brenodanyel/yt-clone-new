@@ -45,7 +45,7 @@ export function Watch() {
 
         <div className="border border-color-5 border-opacity-50 p-2 flex justify-between items-center rounded-md flex-wrap">
           <Link
-            to={`/c/${channel.snippet.customUrl}`}
+            to={`/c/${channel.id}`}
             className="flex gap-2"
           >
             <img

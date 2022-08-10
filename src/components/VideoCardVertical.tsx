@@ -44,7 +44,7 @@ export function VideoCardVertical({ videoId }: VideoCardVerticalProps) {
           <Link className="relative" to={`/watch?v=${video.id}`}>
             <span className="text-sm">{video.snippet.title.repeat(1)}</span>
           </Link>
-          <Link to={`/c/${channel.snippet.customUrl}`} className="w-max">
+          <Link to={`/c/${channel.id}`} className="w-max">
             <span className="text-sm opacity-75 hover:opacity-100 transition-all">{channel.snippet.title}</span>
           </Link>
           <span className="text-xs opacity-75">

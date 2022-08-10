@@ -1,13 +1,11 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useChannel } from '../../hooks/useChannel';
-// import { fetchRecommendedVideos } from '../../services/api';
-// import { VideoCardVertical } from '../../components/VideoCardVertical';
 
 export function Channel() {
-  const { channel_name: channelName } = useParams();
+  const { channelId } = useParams();
 
-  const { channel } = useChannel(channelName as string);
+  const { channel } = useChannel(channelId as string);
 
   if (!channel) {
     return (
