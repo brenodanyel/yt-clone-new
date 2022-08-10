@@ -21,13 +21,13 @@ export function VideoCardHorizontal({ videoId }: VideoCardHorizontalProps) {
     <div
       className={
         [
-          'flex gap-2 flex-row border border-color-4',
+          'flex gap-2 flex-row border border-color-4 flex-wrap',
           'scale-95 hover:scale-100 transition-all rounded-lg overflow-hidden',
         ].join(' ')
       }
     >
       <Link className="relative" to={`/watch?v=${video.id}`}>
-        <img src={video.snippet.thumbnails.high.url} alt="" className="w-full h-56 bg-cover" />
+        <img src={video.snippet.thumbnails.high.url} alt="" className="w-full max-h-48 object-cover" />
         <span className="absolute bottom-1 right-1 bg-color-1 p-1 opacity-90 rounded-md">
           {convertMS(moment.duration(video.contentDetails.duration).asSeconds())}
         </span>
